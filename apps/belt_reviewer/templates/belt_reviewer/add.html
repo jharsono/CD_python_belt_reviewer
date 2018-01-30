@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add a Book</title>
+  </head>
+  <body>
+
+    <div id="header">
+      <div id ="add"><a href="/books">Home</a></div>
+      <div id="logout"><a href="/logout">Logout</a></div>
+    </div>
+    <div id="messages">
+    {%if messages%}
+    <ul>
+      {%for message in messages%}
+        <li>
+          {{message}}
+        </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    </div>
+    <div id="Add">
+      <form name = "add_book" action = "add_book_to_db" method="POST">
+        {% csrf_token %}
+        <p>
+          Title: <input type="text" name = "title" placeholder="Book Title">
+        </p>
+
+        <p>
+          Author:
+        </p>
+        <p>
+          Choose from the list:
+          <select name="author_list">
+            <option value="none">Select an Author</option>
+            {% for author in authors %}
+              <option value="{{author.author}}">{{author.author}}</option>
+            {% endfor %}
+
+          </select>
+        </p>
+        <p>
+          Or add an author<input type="text" name = "author_name" placeholder="Author's Name">
+        </p>
+        <p>
+          Review: <textarea name="review" rows="10" cols="30" placeholder="Write your review here"></textarea>
+        </p>
+        <p>
+          Rating:
+          <select name="rating">
+            <option value="none">Select rating</option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+          </select>
+          Stars
+        </p>
+        <p>
+          <input type="submit" value="submit">
+        </p>
+      </form>
+
+    </div>
+  </div>
+  </body>
+</html>

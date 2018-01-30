@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Delete review</title>
+  </head>
+  <body><div id="header">
+    <p>
+      <a href="/books">Home</a>
+    </p>
+    <p>
+      <a href="/books/add">Add Book and Review</a>
+    </p>
+    <p>
+      <a href="/logout">Logout</a>
+    </p>
+  </div>
+    <h2>Are you sure you want to delete your review for {{review.book.title}}?</h2>
+      <p>
+        On {{review.created_at}} you wrote:
+      </p>
+      <p>
+        {{review.review}}
+      </p>
+
+      <a href="/books/delete_review/{{review.id}}">Yes, delete!</a>
+      <a href="javascript:history.back()">No, take me back.</a>
+  </body>
+</html>

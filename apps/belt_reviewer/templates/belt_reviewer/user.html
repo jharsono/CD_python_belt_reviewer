@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{user.first}} {{user.last}}</title>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <p>
+        <a href="/books">Home</a>
+      </p>
+      <p>
+        <a href="/books/add">Add Book and Review</a>
+      </p>
+      <p>
+        <a href="/logout">Logout</a>
+      </p>
+    </div>
+      <h1>{{user.first}} {{user.last}}</h1>
+      <ul>
+        <li>Email: {{user.email}}</li>
+        <li>Total Reviews: {{total_reviews}} </li>
+      </ul>
+      <p>
+        <h2>Submitted Reviews:</h2>
+        {%for review in reviews%}
+        <h3><a href="/books/{{review.book.id}}">{{review.book.title}}</a></h3>
+        <p>
+          {{review.review}}
+        </p>
+        <p>
+          Reviewed on {{review.created_at}}
+        </p>
+        <p>
+          <a href="/books/confirm_delete_review/{{review.id}}">[delete]</a>
+        </p>
+        {%endfor%}
+      </p>
+  </body>
+</html>

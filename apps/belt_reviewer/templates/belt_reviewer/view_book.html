@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{book.title}}</title>
+  </head>
+  <body>
+  <div id="header">
+    <p>
+      <a href="/books">Home</a>
+    </p>
+    <p>
+      <a href="/books/add">Add Book and Review</a>
+    </p>
+    <p>
+      <a href="/logout">Logout</a>
+    </p>
+  </div>
+    <div id="messages">
+    {%if messages%}
+    <ul>
+      {%for message in messages%}
+        <li>
+          {{message}}
+        </li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    </div>
+
+    <p>
+      <h1>{{book.title}}</h1>
+    </p>
+    <p>
+      <h3>{{book.author}}</h3>
+    </p>
+    <p>
+      Uploaded by: <a href="/users/{{book.submitted_by.id}}"> {{book.submitted_by.first}} {{book.submitted_by.last}} </a>
+    </p>
+    <p>
+      Date added:{{book.created_at}}
+    </p>
+      {%for review in reviews %}
+        <p>
+          <h4><a href="/users/{{review.reviewer.id}}">{{review.reviewer.first}} {{review.reviewer.last}}</a> said:</h4>
+        </p>
+        <p>
+          Rating: {{review.rating}}
+        <p>
+          {{review.review}}
+        </p>
+        <p>
+          Reviewed on {{review.created_at}}
+          {% if review.reviewer.id == current_user.id %}
+            <a href="/books/confirm_delete_review/{{review.id}}">[delete]</a>
+          {% endif %}
+        </p>
+        ___________________
+      {%endfor%}
+
+    <div id="add">
+      <form action = "{{book.id}}/add_review" method="POST">
+        {%csrf_token%}
+        <p>
+          <textarea name="review" rows="10" cols="30" placeholder="Write your review here"></textarea>
+        </p>
+        <p>
+          <select name="rating">
+            <option value="none">Select rating</option>
+            <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
+          </select>
+          <!-- <input type="hidden" name="book_id" value={{book.id}}> -->
+        </p>
+        <input type = "submit" value= "Submit Review">
+      </form>
+    </div>
+  </body>
+</html>
